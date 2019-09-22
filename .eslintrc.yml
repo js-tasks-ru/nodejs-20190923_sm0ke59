@@ -11,14 +11,4 @@ rules:
     - code: 100
   require-jsdoc:
     - off
-  # linebreak-style: 
-  #   ["error", "windows"]
-  # semi: 
-  #   0
-  # brace-style:
-  #   [2, "stroustrup", { "allowSingleLine": true }]
-  # block-spacing: 
-  #   [2, "always"]
-  # no-trailing-spaces:
-  #   ["error", {"ignoreComments": true}]
     
