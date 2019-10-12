@@ -1,6 +1,5 @@
 const Koa = require('koa');
 const app = new Koa();
-const os = require('os');
 
 app.use(require('koa-static')('public'));
 app.use(require('koa-bodyparser')());
@@ -45,7 +44,6 @@ router.post('/publish', async (ctx, next) => {
         ctx.body = 'No content';
     } else {
         ctx.status = 200;
-        allMessage = allMessage.concat(message + os.EOL);
         sendMessageToUsers(message);
     }
 });
