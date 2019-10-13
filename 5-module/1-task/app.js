@@ -7,14 +7,7 @@ app.use(require('koa-bodyparser')());
 const Router = require('koa-router');
 const router = new Router();
 
-// 1. сохранить пользователя
-// 2. отправить ему все сообщения
-// 3. при добавлении нового сообщения отправить его всем пользователям
-// 4. если пользователь закрыл браузер - удалить его из подписчиков 
-
 let users = [];
-let allMessage = [];
-
 
 function sendMessageToUsers (data) {
     users.forEach((user) => user.resolve(data));
@@ -22,13 +15,12 @@ function sendMessageToUsers (data) {
 } 
 
 function allUsers (ctx) {
-    const promise =  new Promise(resolve => {
+    return  new Promise(resolve => {
         users = users.concat({id: ctx.request.query.r, resolve: resolve});
         ctx.res.on('close', () => {
             users = users.filter(user => user.id !== ctx.request.query.r );
         });
     })
-        return promise;
 }
     
 
