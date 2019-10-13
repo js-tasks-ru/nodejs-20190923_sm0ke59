@@ -9,7 +9,11 @@ app.use(async (ctx, next) => {
   try {
     await next();
   } catch (err) {
-    if (err.status) {
+    if ( err.name === 'CastError') {
+      ctx.status = 400;
+      ctx.body = {error: 'ProductId not valid'};
+    }
+    else if (err.status) {
       ctx.status = err.status;
       ctx.body = {error: err.message};
     } else {
