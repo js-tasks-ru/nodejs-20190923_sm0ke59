@@ -1,22 +1,41 @@
 const Products = require('../models/Product');
+const mongoose = require('mongoose');
 
 module.exports.productsBySubcategory = async function productsBySubcategory(ctx, next) {
-  const products = await Products.find()
-  ctx.body = {products: products};
+  const { subcategory } = ctx.request.query;
+  if (subcategory) {
+    ctx.userSubcategory = subcategory;
+    await next();
+  } else {
+    const products = await Products.find();
+    ctx.body = {products: products};
+  }
 };
 
 module.exports.productList = async function productList(ctx, next) {
-  ctx.body = {products: []};
+  if (!mongoose.Types.ObjectId.isValid(ctx.userSubcategory)) {
+    ctx.throw(400, 'Subcategory not valid');
+  } else {
+    const products = await Products.find({subcategory: ctx.userSubcategory});
+    if(products.length) {
+      ctx.body = {products};
+    } else {
+      ctx.throw(404, 'Subcategory not found');
+    }
+  }
 };
 
+/////////////////////////////////////////////////////////////////////////
+
 module.exports.productById = async function productById(ctx, next) {
-  const id = ctx.request.url.split('/').slice(-1).join('');
-  const product = await Products.find({ _id: id})
-  if (product.length) {
-    ctx.body = {product: product[0]};
+  if (!mongoose.Types.ObjectId.isValid(ctx.params.id)) {
+    ctx.throw(400, 'ProductId not valid');
+  }
+  const product = await Products.findById(ctx.params.id);
+  if (product) {
+    ctx.body = {product: product};
   } else {
-    ctx.status = 404;
-    ctx.body = {error: 'Product not found'};
+    ctx.throw(404, 'Product not found');
   }
 };
 
