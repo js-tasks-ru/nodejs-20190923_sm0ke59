@@ -17,11 +17,7 @@ module.exports.productList = async function productList(ctx, next) {
     ctx.throw(400, 'Subcategory not valid');
   } else {
     const products = await Products.find({subcategory: ctx.userSubcategory});
-    if(products.length) {
       ctx.body = {products};
-    } else {
-      ctx.throw(404, 'Subcategory not found');
-    }
   }
 };
 
