@@ -22,6 +22,6 @@ module.exports.categoryList = async function categoryList(ctx, next) {
         }
         return item
       })
-  console.log(categories);
+
   ctx.body = {categories} ;
 };
