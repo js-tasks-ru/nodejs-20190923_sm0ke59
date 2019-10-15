@@ -1,27 +1,8 @@
 const Category = require('../models/Category');
+const changeCategories = require('../libs/changeCategories');
 
 module.exports.categoryList = async function categoryList(ctx, next) {
-  let categories = await Category.find();
-  categories = categories
-    .map(item => {
-      return {...item.toJSON(), id: item._id }
-    })
-    .map( item => { 
-      delete(item._id)
-      delete(item.__v)
-      return item })
-      .map(item => {
-        if(item.subcategories.length) {
-        item.subcategories = item.subcategories.map(i => {
-            return { ...i, id: i._id}
-          })
-          .map(i => {
-            delete(i._id)
-            return i
-          })
-        }
-        return item
-      })
-
-  ctx.body = {categories} ;
+  const categories = await Category.find();
+  const answerToUser = changeCategories(categories);
+  ctx.body = {categories: answerToUser};
 };
