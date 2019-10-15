@@ -9,7 +9,7 @@ module.exports.productsBySubcategory = async function productsBySubcategory(ctx,
     await next();
   } else {
     const products = await Products.find();
-    ctx.body = {products: products};
+    ctx.body = {products: changeProduct(products)};
   }
 };
 
@@ -18,11 +18,11 @@ module.exports.productList = async function productList(ctx, next) {
     ctx.throw(400, 'Subcategory not valid');
   } else {
     const products = await Products.find({subcategory: ctx.userSubcategory});
-    ctx.body = {products};
+    ctx.body = {products: changeProduct(products)};
   }
 };
 
-/////////////////////////////////////////////////////////////////////////
+// ///////////////////////////////////////////////////////////////////////
 
 module.exports.productById = async function productById(ctx, next) {
   if (!mongoose.Types.ObjectId.isValid(ctx.params.id)) {
