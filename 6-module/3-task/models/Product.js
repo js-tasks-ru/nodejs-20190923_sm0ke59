@@ -42,8 +42,6 @@ productSchema.index(
         title: 10,
         description: 5,
       },
-    },
-    {
       name: 'TextSearchIndex',
       default_language: 'russian',
     }
