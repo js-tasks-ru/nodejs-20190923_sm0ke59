@@ -1,8 +1,9 @@
 const Products = require('../models/Product');
 const mongoose = require('mongoose');
+const changeProduct = require('../libs/changeProduct');
 
 module.exports.productsBySubcategory = async function productsBySubcategory(ctx, next) {
-  const { subcategory } = ctx.request.query;
+  const {subcategory} = ctx.request.query;
   if (subcategory) {
     ctx.userSubcategory = subcategory;
     await next();
@@ -29,7 +30,7 @@ module.exports.productById = async function productById(ctx, next) {
   }
   const product = await Products.findById(ctx.params.id);
   if (product) {
-    ctx.body = {product: product};
+    ctx.body = {product: changeProduct(product.toJSON())};
   } else {
     ctx.throw(404, 'Product not found');
   }
