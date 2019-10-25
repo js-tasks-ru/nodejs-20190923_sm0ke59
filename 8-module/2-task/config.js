@@ -2,7 +2,7 @@ module.exports = {
   mongodb: {
     uri: (process.env.NODE_ENV === 'test')
       ? 'mongodb://localhost/8-module-2-task'
-      : 'mongodb://localhost/any-shop',
+      : 'mongodb://localhost/8-module-2-task',
   },
   crypto: {
     iterations: (process.env.NODE_ENV === 'test' ? 1 : 12000),
@@ -36,7 +36,7 @@ module.exports = {
     },
   },
   mailer: {
-    user: '',
-    password: '',
+    user: 'abe72bdfa3c752',
+    password: 'b3254542e8517f',
   },
 };
