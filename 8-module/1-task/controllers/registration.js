@@ -21,7 +21,7 @@ module.exports.register = async (ctx, next) => {
     subject: 'Подтвердите почту',
   });
   ctx.status = 200;
-  ctx.body = {message: 'отправленна ссылка'};
+  ctx.body = {status: 'ok'};
 };
 
 module.exports.confirm = async (ctx, next) => {
