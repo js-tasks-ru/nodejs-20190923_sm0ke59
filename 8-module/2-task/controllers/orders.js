@@ -7,7 +7,6 @@ module.exports.checkout = async function checkout(ctx, next) {
   const user = ctx.user;
   const order = new Order({user: user._id, product, phone, address});
   await order.save();
-  console.log(order);
   const {id} = order;
   const productInfo = await Product.findById(product);
 
@@ -20,6 +19,7 @@ module.exports.checkout = async function checkout(ctx, next) {
 };
 
 module.exports.getOrdersList = async function ordersList(ctx, next) {
-  const odrder = await Order.find({user: ctx.user._id}).populate('Product');
-  ctx.body = {odrders: [odrder]};
+  const order = await Order.find({user: ctx.user._id}).populate('Product');
+  console.log(order);
+  ctx.body = {order: [order]};
 };
