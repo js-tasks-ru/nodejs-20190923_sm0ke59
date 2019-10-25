@@ -21,7 +21,7 @@ app.use(async (ctx, next) => {
   } catch (err) {
     if (err.status) {
       ctx.status = err.status;
-      ctx.body = {error: err.message};
+      ctx.body = {errors: err.errors};
     } else {
       console.error(err);
       ctx.status = 500;
@@ -72,8 +72,8 @@ router.post('/oauth_callback', handleMongooseValidationError, oauthCallback);
 
 router.get('/me', mustBeAuthenticated, me);
 
-router.post('/register', register);
-router.post('/confirm', confirm);
+router.post('/register', handleMongooseValidationError, register);
+router.post('/confirm', handleMongooseValidationError, confirm);
 
 app.use(router.routes());
 
