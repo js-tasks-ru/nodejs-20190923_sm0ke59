@@ -20,6 +20,5 @@ module.exports.checkout = async function checkout(ctx, next) {
 
 module.exports.getOrdersList = async function ordersList(ctx, next) {
   const order = await Order.find({user: ctx.user._id}).populate('Product');
-  console.log(order);
   ctx.body = {order: [order]};
 };
