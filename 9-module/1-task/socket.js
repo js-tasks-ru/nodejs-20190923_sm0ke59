@@ -6,7 +6,7 @@ const Message = require('./models/Message');
 function socket(server) {
   const io = socketIO(server);
   io.use(async function(socket, next) {
-    const query = socket.handshake.query.token;
+    const token = socket.handshake.query.token;
     if (!token) return next(new Error('anonymous sessions are not allowed'));
     
     const session = await Session.findOne({token}).populate('User');
