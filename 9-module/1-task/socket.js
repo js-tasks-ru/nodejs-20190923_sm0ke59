@@ -18,9 +18,9 @@ function socket(server) {
   io.on('connection', function(socket) {
     socket.on('message', async (msg) => {
       console.log(msg);
-      const {user, chat, text } = msg;
+      const {chat, text } = msg;
       const date = new Date();
-      await Message.create({user, chat, text, date: date});
+      await Message.create({user: socket.user, chat, text, date: date});
     });
   });
 
