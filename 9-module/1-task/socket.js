@@ -16,7 +16,12 @@ function socket(server) {
   });
 
   io.on('connection', function(socket) {
-    socket.on('message', async (msg) => {});
+    socket.on('message', async (msg) => {
+      console.log(msg);
+      const {user, chat, text } = msg;
+      const date = new Date();
+      await Message.create({user, chat, text, date: date});
+    });
   });
 
   return io;
