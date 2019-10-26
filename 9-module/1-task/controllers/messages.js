@@ -3,5 +3,5 @@ const mapMessage = require('../mappers/message');
 
 module.exports.messageList = async function messages(ctx, next) {
   const messages = await Message.find();
-  ctx.body = mapMessage(messages.slice(-20));
+  ctx.body = {messages:mapMessage(messages.slice(-20))};
 };
